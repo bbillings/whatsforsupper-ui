@@ -55,6 +55,6 @@ function retrieveRecipeFor(meal, res) {
 	}).end();
 }
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
   console.log("Live at Port 3000");
 });
