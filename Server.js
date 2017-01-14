@@ -1,29 +1,24 @@
-var express = require("express");
+var express = require('express');
+var https = require('https');
 var app = express();
-var router = express.Router();
-var path = __dirname + '/views/';
+app.set('view engine', 'ejs');
 
-router.use(function (req,res,next) {
-  console.log("/" + req.method);
-  next();
-});
+app.get('/', function(req, res) {
+	var options = {
+		host: 'whats-for-supper-service.herokuapp.com',
+		port: 443,
+		path: '/meal',
+		method: 'GET'
+	};
 
-router.get("/",function(req,res){
-  res.sendFile(path + "index.html");
-});
-
-router.get("/about",function(req,res){
-  res.sendFile(path + "about.html");
-});
-
-router.get("/contact",function(req,res){
-  res.sendFile(path + "contact.html");
-});
-
-app.use("/",router);
-
-app.use("*",function(req,res){
-  res.sendFile(path + "404.html");
+	https.request(options, function(response) {		
+		response.setEncoding('utf8');
+		response.on('data', function (chunk) {
+			let parsedData = JSON.parse(chunk);
+			meals = parsedData._embedded.meal;
+			res.render('index', {meals});
+		});
+	}).end();	    
 });
 
 app.listen(3000,function(){
