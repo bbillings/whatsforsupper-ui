@@ -21,6 +21,23 @@ app.get('/', function(req, res) {
 	}).end();	    
 });
 
+app.get('/meal', function(req, res) {
+	var options = {
+		host: 'whats-for-supper-service.herokuapp.com',
+		port: 443,
+		path: '/meal/'+req.query.mealId,
+		method: 'GET'
+	};
+
+	https.request(options, function(response) {		
+		response.setEncoding('utf8');
+		response.on('data', function (chunk) {
+			let meal = JSON.parse(chunk);			
+			res.render('view-meal', {meal});
+		});
+	}).end();
+});
+
 app.listen(3000,function(){
   console.log("Live at Port 3000");
 });

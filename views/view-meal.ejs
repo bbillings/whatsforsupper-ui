@@ -8,10 +8,13 @@
 	<body>
 		<% include nav.ejs %>
 		<div class="container">
-			<% meals.forEach(function(meal) { %>
-				<% include meal-panel.ejs %>
-			<% }); %>		
+			<a href="/"><i class="glyphicon glyphicon-chevron-left"></i> home</a>
+			
+			<h1><%= meal.name %></h1>
+			<p><%= meal.description %></p>
+			<p>The recipe will probably show up down here.</p>
 		</div>
+		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	</body>
