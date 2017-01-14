@@ -32,11 +32,28 @@ app.get('/meal', function(req, res) {
 	https.request(options, function(response) {		
 		response.setEncoding('utf8');
 		response.on('data', function (chunk) {
-			let meal = JSON.parse(chunk);			
-			res.render('view-meal', {meal});
+			let meal = JSON.parse(chunk);
+			retrieveRecipeFor(meal, res);				
 		});
 	}).end();
 });
+
+function retrieveRecipeFor(meal, res) {
+	var options = {
+		host: 'whats-for-supper-service.herokuapp.com',
+		port: 443,
+		path: '/meal/'+ meal.id + '/recipe',
+		method: 'GET'
+	};
+
+	https.request(options, function(response) {		
+		response.setEncoding('utf8');
+		response.on('data', function (chunk) {			
+			let recipe = JSON.parse(chunk);
+			res.render('view-meal', {meal, recipe});
+		});
+	}).end();
+}
 
 app.listen(3000,function(){
   console.log("Live at Port 3000");

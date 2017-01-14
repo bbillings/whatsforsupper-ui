@@ -8,9 +8,14 @@
 	<body>
 		<% include nav.ejs %>
 		<div class="container">
-			<% meals.forEach(function(meal) { %>
-				<% include meal-panel.ejs %>
-			<% }); %>		
+			<div class="row">
+				<button type="button" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i> New Meal</button>
+			</div><br>
+			<div class="row">
+				<% meals.forEach(function(meal) { %>
+					<% include meal-panel.ejs %>
+				<% }); %>		
+			</div>
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
