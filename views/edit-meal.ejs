@@ -11,12 +11,21 @@
 		<% include nav.ejs %>
 		<div class="container">
 			<a href="/"><i class="glyphicon glyphicon-chevron-left"></i> home</a>
-			<a class="pull-right" href="/edit-meal?mealId=<%= meal.id %>"><i class="glyphicon glyphicon-pencil"></i> edit</a>
-			<h1><%= meal.name %></h1>
-			<p><%= meal.description %></p>
-			<% include view-recipe.ejs %>
+			<form action="save-meal" method="post">
+				<div class="form-group">
+					<label for="mealName">Meal name</label>
+					<input type="text" class="form-control" id="mealName" name="mealName" value="<%= meal.name %>">
+				</div>
+				<div class="form-group">
+					<label for="mealDescription">Meal description</label>
+					<input type="text" class="form-control" id="mealDescription" name="mealDescription" value="<%= meal.description %>">
+				</div>
+				<% include view-recipe.ejs %>
+				<button class="btn btn-primary">Save</button>
+				<a href="meal?mealId=<%= meal.id %>" class="btn btn-default">Cancel</a>
+				<input type="hidden" value="<%= meal.id %>" name="mealId">
+			</form>
 		</div>
-		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	</body>
