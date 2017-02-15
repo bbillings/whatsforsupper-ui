@@ -48,6 +48,26 @@ app.get('/meal', function(req, res) {
 	}).end();
 });
 
+app.get('/create-meal', function(req, res) {
+    res.render('create-meal');
+});
+
+app.post('/create-meal', function(req, res) {
+    request.post({
+            url: 'https://whats-for-supper-service.herokuapp.com/meal',
+            'content-type': 'application/json',
+            body : JSON.stringify({
+                'name' : req.body.mealName,
+                'description' : req.body.mealDescription
+            })
+        },
+        function (err, httpResponse, body) {
+            res.writeHead(301, {Location: '/'});
+            res.end();
+        }
+    );
+});
+
 app.get('/edit-meal', function(req, res) {
     var options = {
 		host: 'whats-for-supper-service.herokuapp.com',
@@ -72,7 +92,6 @@ app.get('/edit-meal', function(req, res) {
 });
 
 app.post('/save-meal', function(req, res) {
-
     request.patch({
             url:'https://whats-for-supper-service.herokuapp.com/meal/' + req.body.mealId,
             'content-type': 'application/json',
