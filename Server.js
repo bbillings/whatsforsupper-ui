@@ -3,6 +3,9 @@ var https = require('https');
 var request = require('request');
 var app = express();
 app.set('view engine', 'ejs');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
 	var options = {
@@ -69,11 +72,11 @@ app.get('/edit-meal', function(req, res) {
 });
 
 app.post('/save-meal', function(req, res) {
-    request.post({
-            url:'https://whats-for-supper-service.herokuapp.com/meal',
+
+    request.patch({
+            url:'https://whats-for-supper-service.herokuapp.com/meal/' + req.body.mealId,
             'content-type': 'application/json',
             body : JSON.stringify({
-                'id' : req.body.mealId,
                 'name' : req.body.mealName,
                 'description' : req.body.mealDescription
             })
@@ -95,6 +98,16 @@ app.post('/save-meal', function(req, res) {
         }
     );
 })
+
+app.post('/delete-meal', function(req, res) {
+    request.delete(
+        'https://whats-for-supper-service.herokuapp.com/meal/' + req.body.mealId,
+        function (err, httpResponse, body) {
+            res.writeHead(301, {Location: '/'});
+            res.end();
+        }
+    );
+});
 
 function retrieveRecipeAndRenderMealFor(options, res, meal, mealViewName) {
     https.request(options, function(response) {

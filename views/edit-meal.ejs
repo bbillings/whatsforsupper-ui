@@ -23,7 +23,7 @@
 				<% include view-recipe.ejs %>
 				<button class="btn btn-primary">Save</button>
 				<a href="meal?mealId=<%= meal.id %>" class="btn btn-default">Cancel</a>
-				<input type="hidden" value="<%= meal.id %>" name="mealId">
+				<input type="hidden" value="<%= meal.id %>" name="mealId" id="mealId">
 			</form>
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

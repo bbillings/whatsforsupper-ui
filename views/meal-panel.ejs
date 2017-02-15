@@ -1,6 +1,9 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<span><i class="glyphicon glyphicon-trash pull-right"></i></span>
+		<form action="delete-meal" method="post" class="pull-right">
+			<input type="hidden" id="mealId" name="mealId" value="<%= meal.id %>">
+			<button type="submit" style="background: none;border: none;padding: 0;"><span class="glyphicon glyphicon-trash"></span></button>
+		</form>
 		<h3 class="panel-title"><%= meal.name %></h3>
 	</div>
 	<div class="panel-body">
